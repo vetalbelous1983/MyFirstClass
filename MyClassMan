@@ -1,0 +1,200 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VetalMyFirstClass
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string user_command = "";
+            bool Infinity = true;
+
+            Man SomeMan = null;
+
+            while (Infinity)
+            {
+                System.Console.WriteLine("Пожалуйста введите команду");
+                user_command = System.Console.ReadLine();
+
+                switch (user_command)
+                {
+                    case "go":
+                        {
+                            if (SomeMan != null)
+                            {
+                                SomeMan.Go();
+                            }
+                            else
+                            {
+                                System.Console.WriteLine("Человек не создан команда не может быть выполнена");
+                            }
+                            break;
+                        }
+                    case "talk":
+                        {
+                            if (SomeMan != null)
+                            {
+                                SomeMan.Talk();
+                            }
+
+                            else
+                            {
+                                System.Console.WriteLine("Человек не создан команда не может быть выполнена");
+                            }
+                            break;
+                        }
+                    case "kill_man":
+                        {
+                            if (SomeMan != null)
+                            {
+                                SomeMan.Kill();
+                                System.Console.WriteLine("Вы убили человека");
+                            }
+                            break;
+                        }
+                    case "create_man":
+                        {
+                            if (SomeMan != null) 
+                                {
+                                SomeMan.Kill();
+                                }
+                            System.Console.WriteLine("Пожалуйста введите имя человека");
+                            user_command = System.Console.ReadLine();
+                            SomeMan = new Man(user_command);
+                            System.Console.WriteLine("Человек успешно создан");
+                            break;
+                        }
+                        
+                    case "exit":
+                        {
+                            Infinity = false;
+                            break;
+                        }
+                    case "help":
+                        {
+                            System.Console.WriteLine("Список комманд");
+                            System.Console.WriteLine("---");
+
+                            System.Console.WriteLine("create_man : команда которая создает человека, (экземпляр класса Man)");
+                            System.Console.WriteLine("kill_man : команда которая убивает человека");
+                            System.Console.WriteLine("talk : команда заставляет человека говорить (если создан экземпляр класса)");
+                            System.Console.WriteLine("go : команда заставляет человека идти(если создан экземпляр класса)");
+
+                            System.Console.WriteLine("---");
+                            System.Console.WriteLine("---");
+                            break;
+                        }
+                    default:
+                        {
+                            System.Console.WriteLine("Ваша команда не определена, пожалуйста повторите снова");
+                            System.Console.WriteLine("Для вывода списка команд введите команду help");
+                            System.Console.WriteLine("Для завершения программы введите exit");
+                            break;
+                        }
+                }
+            }
+        }
+    }
+
+    public class Man
+    {
+        /*конструктор класса   (данная функция вызывается
+        при создании нового экземпляря класса)*/
+        public Man(string _name)
+        {
+            Name = _name;
+            isLife = true;
+            Age = (uint)rnd.Next(3, 59);
+            Health = (uint)rnd.Next(1, 101);
+        }
+        private Random rnd = new Random();
+        /*закрытые члены, которые нельзя изменить
+         извне класса*/
+
+        //Строка содержащая имя
+        private string Name;
+        private uint Age;
+        private uint Health;
+        private bool isLife;
+
+        //заготовка функции говорить
+        public void Talk()
+        {
+            int random_talk = rnd.Next(1, 4);
+            string tmp_str = "";
+
+            switch (random_talk)
+            { 
+                case 1:
+               {
+                    tmp_str = "Привет меня зовут - " + Name + ", рад познакомиться";
+                    break;
+                }
+                case 2:
+                {
+                    tmp_str = "Мне уже " + Age + ",лет от роду";
+                    break;
+                }
+                case 3:
+                {
+                    if (Health > 50)
+                    {
+                        tmp_str = "Да я здоров как Сбитый летчик";
+                        break;
+                    }
+                    else
+                    {
+                        tmp_str = "Со здоровьем беда дожить бы до - " + (Age + 40).ToString();
+                        break;
+                    }
+                }
+            }
+            System.Console.WriteLine(tmp_str);
+        }
+            
+
+        
+        //заготовка функции идти
+        public void Go()
+        {
+            if (isLife == true)
+            {
+                if (Health > 50)
+                {
+                    string outString = Name + " - мирно гуляю по городу";
+                    System.Console.WriteLine(outString);
+                }
+                else
+                {
+                    string outString = Name + " Сильно болен гулять не могу";
+                    System.Console.WriteLine(outString);
+                }
+            }
+            else
+            {
+                string outString = Name + " Не может идти он умер";
+                System.Console.WriteLine(outString);
+            }
+                 
+        }
+        //заготовка функции возвращающая показатель - жив ли данный человек
+        public bool IsAlive()
+        {
+            /*возвращаем значение, к которому мы не можем обратиться
+             напрямую из вне класса, так как оно имеет статус private*/
+            return isLife;
+        }
+        public void Kill ()
+        {
+            isLife = false;
+        }
+
+    }
+
+}
+//Мой первый класс
+
