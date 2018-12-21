@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VetalMyFirstClass
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+        }
+    }
+
+    public class Man
+    {
+        /*конструктор класса   (данная функция вызывается
+        при создании нового экземпляря класса)*/
+        public Man(string _name)
+        {
+            Name = _name;
+            isLife = true;
+            Age = (uint)rnd.Next(3, 59);
+            Health = (uint)rnd.Next(1, 101);
+        }
+        private Random rnd = new Random();
+        /*закрытые члены, которые нельзя изменить
+         извне класса*/
+
+        //Строка содержащая имя
+        private string Name;
+        private uint Age;
+        private uint Health;
+        private bool isLife;
+
+        //заготовка функции говорить
+        public void Talk()
+        {
+            int random_talk = rnd.Next(1, 4);
+            string tmp_str = "";
+
+            switch (random_talk)
+            {
+                case 1
+               {
+                        tmp_str = "Привет меня зовут" + Name + "рад познакомиться";
+                        break;
+                    }
+                case 2
+                {
+                        tmp_str = "Мне уже" + Age + "лет от роду";
+                        break;
+                    }
+                case 3
+                {
+                        if (Health > 50)
+                        {
+                            tmp_str = "Да я здоров как Сбитый летчик";
+                            break;
+                        }
+                        else
+                        {
+                            tmp_str = "Со здоровьем беда пора в больницу" + (Age + 3).ToString();
+                            break;
+                        }
+                    }
+            }
+            System.Console.WtiteLine(tmp_str);
+
+        }
+        //заготовка функции идти
+        public void Go()
+        {
+             if (isLife == true)
+                {
+                   if (Health > 50)
+                        {
+            string outString = Name + "мирно гуляю по городу";
+            System.Console.WriteLine(outString);
+                        }
+                   else
+                   {
+            string outString = Name + " Сильно болен гулять не могу";
+            System.Console.WriteLine(outString);
+                   }
+             else
+             {
+            string outString = Name + "Не может идти он умер";
+            System.Console.WriteLine(outString);
+             }
+                 }
+        }
+        //заготовка функции возвращающая показатель - жив ли данный человек
+        public bool IsAlive()
+        {
+            /*возвращаем значение, к которому мы не можем обратиться
+             напрямую из вне класса, так как оно имеет статус private*/
+            return isLife;
+        }
+    }
+}
