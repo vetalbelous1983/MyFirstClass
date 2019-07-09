@@ -18,7 +18,7 @@ namespace VetalMyFirstClass
             while (Infinity)
             {
                 System.Console.WriteLine("Пожалуйста введите команду");
-                user_command = System.Console.ReadLine();
+                user_command = System.Console.ReadLine();//Hello
 
                 switch (user_command)
                 {
